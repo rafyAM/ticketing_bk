@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Kategori;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
@@ -52,7 +53,7 @@ class EventController extends Controller
 
         Event::create($validatedData);
 
-        return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil ditambahkan.');
+        return redirect()->route('admin.events.index')->with('success', 'Event berhasil ditambahkan.');
     }
 
     /**
@@ -64,7 +65,7 @@ class EventController extends Controller
         $categories = Kategori::all();
         $tickets = $event->tikets;
 
-        return view('components.admin.events.show', compact('event', 'categories', 'tickets'));
+        return view('admin.events.show', compact('event', 'categories', 'tickets'));
     }
 
     /**
@@ -103,7 +104,7 @@ class EventController extends Controller
 
             $event->update($validatedData);
 
-            return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil diperbarui.');
+            return redirect()->route('admin.events.index')->with('success', 'Event berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui event: ' . $e->getMessage()]);
         }
@@ -117,6 +118,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil dihapus.');
+        return redirect()->route('admin.events.index')->with('success', 'Event berhasil dihapus.');
     }
 }
