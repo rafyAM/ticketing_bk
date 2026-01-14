@@ -15,7 +15,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-        return view('admin.event.index', compact('events'));
+        return view('components.admin.events.index', compact('events'));
     }
 
     /**
@@ -24,7 +24,7 @@ class EventController extends Controller
     public function create()
     {
         $categories = Kategori::all();
-        return view('admin.event.create', compact('categories'));
+        return view('components.admin.events.create', compact('categories'));
     }
 
     /**
@@ -52,7 +52,7 @@ class EventController extends Controller
 
         Event::create($validatedData);
 
-        return redirect()->route('admin.events.index')->with('success', 'Event berhasil ditambahkan.');
+        return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil ditambahkan.');
     }
 
     /**
@@ -64,7 +64,7 @@ class EventController extends Controller
         $categories = Kategori::all();
         $tickets = $event->tikets;
 
-        return view('admin.event.show', compact('event', 'categories', 'tickets'));
+        return view('components.admin.events.show', compact('event', 'categories', 'tickets'));
     }
 
     /**
@@ -74,7 +74,7 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $categories = Kategori::all();
-        return view('admin.event.edit', compact('event', 'categories'));
+        return view('components.admin.events.edit', compact('event', 'categories'));
     }
 
     /**
@@ -103,7 +103,7 @@ class EventController extends Controller
 
             $event->update($validatedData);
 
-            return redirect()->route('admin.events.index')->with('success', 'Event berhasil diperbarui.');
+            return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui event: ' . $e->getMessage()]);
         }
@@ -117,6 +117,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('admin.events.index')->with('success', 'Event berhasil dihapus.');
+        return redirect()->route('components.admin.events.index')->with('success', 'Event berhasil dihapus.');
     }
 }
