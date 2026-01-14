@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\TiketController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('categories', CategoryController::class);
 
         Route::resource('events', EventController::class);
+
+        Route::resource('tickets', TiketController::class);
+
     });
 });
 
