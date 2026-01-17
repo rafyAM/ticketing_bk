@@ -16,9 +16,9 @@
         <div class="card bg-base-100 shadow">
           <figure>
             <img src="{{ $event->gambar
-      ? asset('storage/' . $event->gambar)
-      : 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'
-  }}" alt="{{ $event->judul }}" class="w-full h-96 object-cover" />
+                    ? asset('images/events/' . $event->gambar)
+                    : 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp'
+                }}" alt="{{ $event->judul }}" class="w-full h-96 object-cover" />
           </figure>
           <div class="card-body">
             <div class="flex justify-between items-start gap-4">
