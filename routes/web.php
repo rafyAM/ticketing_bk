@@ -8,8 +8,9 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
-use App\Http\Controllers\User\HomeController;
+
 use App\Http\Controllers\User\EventController as UserEventController;
+use App\Http\Controllers\User\HomeController;
 
 use App\Http\Controllers\User\OrderController;
 Route::get('/',[HomeController::class, 'index'])->name('home');
@@ -32,7 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-        // Category Management
         Route::resource('categories', CategoryController::class);
 
         Route::resource('events', EventController::class);

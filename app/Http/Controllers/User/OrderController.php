@@ -22,14 +22,12 @@ class OrderController extends Controller
     return view('orders.index', compact('orders'));
   }
 
-  // show a specific order
   public function show(Order $order)
   {
     $order->load('detailOrders.tiket', 'event');
     return view('orders.show', compact('order'));
   }
 
-  // store an order (AJAX POST)
   public function store(Request $request)
   {
 
@@ -43,10 +41,8 @@ class OrderController extends Controller
     $user = Auth::user();
 
     try {
-      // transaction
       $order = DB::transaction(function () use ($data, $user) {
         $total = 0;
-        // validate stock and calculate total
         foreach ($data['items'] as $it) {
           $t = Tiket::lockForUpdate()->findOrFail($it['tiket_id']);
           if ($t->stok < $it['jumlah']) {
@@ -72,7 +68,6 @@ class OrderController extends Controller
             'subtotal_harga' => $subtotal,
           ]);
 
-          // reduce stock
           $t->stok = max(0, $t->stok - $it['jumlah']);
           $t->save();
         }
@@ -80,7 +75,6 @@ class OrderController extends Controller
         return $order;
       });
 
-      // flash success message to session so it appears after redirect
       session()->flash('success', 'Pesanan berhasil dibuat.');
 
       return response()->json(['ok' => true, 'order_id' => $order->id, 'redirect' => route('orders.index')]);
