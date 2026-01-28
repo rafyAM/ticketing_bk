@@ -18,7 +18,6 @@ class TiketController extends Controller
             'stok' => 'required|integer|min:0',
         ]);
 
-        // Create the ticket
         Tiket::create($validatedData);
 
         return redirect()->route('admin.events.show', $validatedData['event_id'])->with('success', 'Ticket berhasil ditambahkan.');

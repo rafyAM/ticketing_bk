@@ -11,8 +11,10 @@ use App\Http\Controllers\Admin\EventController as AdminEventController;
 
 use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\Admin\PaymentController;
 
 use App\Http\Controllers\User\OrderController;
+
 Route::get('/',[HomeController::class, 'index'])->name('home');
 Route::get('/events/{event}', [UserEventController::class, 'show'])->name('events.show');
 
@@ -41,6 +43,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
+
+        Route::resource('payments', PaymentController::class);
     });
 });
 

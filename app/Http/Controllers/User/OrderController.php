@@ -17,14 +17,14 @@ class OrderController extends Controller
     public function index()
   {
     $user = Auth::user() ?? \App\Models\User::first();
-    $orders = Order::where('user_id', $user->id)->with('event')->orderBy('created_at', 'desc')->get();
+    $orders = Order::where('user_id', $user->id)->with(['event', 'payment'])->orderBy('created_at', 'desc')->get();
     
     return view('orders.index', compact('orders'));
   }
 
   public function show(Order $order)
   {
-    $order->load('detailOrders.tiket', 'event');
+    $order->load('detailOrders.tiket', 'event', 'payment');
     return view('orders.show', compact('order'));
   }
 
@@ -33,6 +33,7 @@ class OrderController extends Controller
 
     $data = $request->validate([
       'event_id' => 'required|exists:events,id',
+      'payment_id' => 'required|exists:payments,id',
       'items' => 'required|array|min:1',
       'items.*.tiket_id' => 'required|integer|exists:tikets,id',
       'items.*.jumlah' => 'required|integer|min:1',
@@ -54,6 +55,7 @@ class OrderController extends Controller
         $order = Order::create([
           'user_id' => $user->id,
           'event_id' => $data['event_id'],
+          'payment_id' => $data['payment_id'],
           'order_date' => Carbon::now(),
           'total_harga' => $total,
         ]);

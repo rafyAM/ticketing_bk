@@ -40,16 +40,28 @@
                 </a>
             </li>
 
+            <!-- metode pembayaran  -->
+            <li class="{{ request()->routeIs('admin.payments.index') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('admin.payments.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="payments">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Metode Pembayaran</span>
+                </a>
+            </li>
+
             <!-- History item -->
-        <li class="{{ request()->routeIs('admin.histories.*') ? 'bg-gray-200 rounded-lg' : '' }}">
-            <a href="{{ route('admin.histories.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <span class="is-drawer-close:hidden">History Pembelian</span>
-            </a>
-        </li>
+            <li class="{{ request()->routeIs('admin.histories.index') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('admin.histories.index') }}" class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="History">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span class="is-drawer-close:hidden">History Pembelian</span>
+                </a>
+            </li>
+
         </ul>
 
         <!-- logout -->

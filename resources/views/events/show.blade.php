@@ -117,6 +117,21 @@
           </div>
 
           <div class="divider"></div>
+          
+          <!-- Metode Pembayaran -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Metode Pembayaran</span>
+            </label>
+            <select id="payment_id" class="select select-bordered w-full" required>
+              <option value="" disabled selected>Pilih Metode Pembayaran</option>
+              @foreach($payments as $payment)
+                <option value="{{ $payment->id }}">{{ $payment->metode_pembayaran }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="divider"></div>
           <div class="flex justify-between items-center">
             <span class="font-bold">Total</span>
             <span class="font-bold text-lg" id="modalTotal">Rp 0</span>
@@ -257,6 +272,13 @@
     // Confirm checkout button
     document.getElementById('confirmCheckout').addEventListener('click', async () => {
       const btn = document.getElementById('confirmCheckout');
+      const paymentId = document.getElementById('payment_id').value;
+
+      if (!paymentId) {
+        alert('Silakan pilih metode pembayaran');
+        return;
+      }
+
       btn.setAttribute('disabled', 'disabled');
       btn.textContent = 'Memproses...';
 
@@ -282,7 +304,7 @@
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ event_id: {{ $event->id }}, items })
+          body: JSON.stringify({ event_id: {{ $event->id }}, payment_id: paymentId, items })
         });
 
         if (!res.ok) {

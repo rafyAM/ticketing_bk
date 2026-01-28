@@ -35,6 +35,18 @@
 
           <div class="divider"></div>
 
+          <div class="mb-3">
+            <span class="text-sm text-gray-500">Pembeli:</span>
+            <div class="font-semibold">{{ $order->user?->name ?? '-' }}</div>
+          </div>
+
+          <div class="mb-3">
+            <span class="text-sm text-gray-500">Metode Pembayaran:</span>
+            <div class="font-semibold">{{ $order->payment?->metode_pembayaran ?? '-' }}</div>
+          </div>
+
+          <div class="divider"></div>
+
           <div class="flex justify-between items-center">
             <span class="font-bold">Total</span>
             <span class="font-bold text-lg">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</span>
